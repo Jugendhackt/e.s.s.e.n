@@ -91,7 +91,7 @@ class Property {
             }
         } elseif ($this->type == "wikibase-item") {
             $this->value = $data->mainsnak->datavalue->value->id;
-        } elseif ($this->type == "url") {
+        } elseif ($this->type == "url" or $this->type == "external-id") {
             $this->value = $data->mainsnak->datavalue->value;
         }
 
@@ -127,4 +127,10 @@ class Property {
         $unitData = json_decode(file_get_contents($GLOBALS["baseUrl"] . "api.php?action=wbgetentities&format=json&ids=".$last));
         return($unitData->entities->$last->labels->en->value);
     }
+}
+
+function getGrofersPrice($grofersUrl) {
+    $grofersId = end(explode("/", $grofersUrl));
+    $grofersData = json_decode(file_get_contents("https://grofers.com/v6/merchant/26908/product/".$grofersId));
+    return($grofersData->data->product->price);
 }

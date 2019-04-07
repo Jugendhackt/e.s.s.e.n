@@ -16,21 +16,19 @@ if (isset($_GET['checkin'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>E.S.S.E.N. - Efficient Super Safe Erudite Network</title>
+    <title>E.S.S.E.N. - <?php echo($item->name); ?></title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
-
-<body>
+<body bgcolor="steelblue">
     <div class="row" style="background: black;">
-
         <div class="container">
             <div class="col">
-                <img src="" height= width=300>
-                <h1 style="color: white">E.S.S.E.N. - <?php echo($item->name); ?></h1>
+
+                <a href="index.php"><h1 style="color: white"><img src="img/logo.jpg" width="5%">E.S.S.E.N. - Efficient Super Safe Erudite Network</h1></a>
             </div>
         </div>
     </div>
@@ -79,7 +77,7 @@ if (isset($_GET['checkin'])) {
                 ['Nutrient', 'Value per 100g'],
                 <?php
                 foreach ($item->propertyList() as $property) {
-                    if ($property->id != "P2" and $property->id != "P11" and $property->id != "P13" and $property->id != "P14") {
+                    if ($property->id != "P2" and $property->id != "P11" and $property->id != "P13" and $property->id != "P14" and $property->id != "P16") {
                         echo("['".$property->name."', ".$property->value."], ");
                     }
                 }
@@ -111,7 +109,7 @@ if (isset($_GET['checkin'])) {
                 data.addRows([
                     <?php
                     foreach ($item->propertyList() as $property) {
-                        if ($property->id != "P2" and $property->id != "P11" and $property->id != "P13" and $property->id != "P14") {
+                        if ($property->id != "P2" and $property->id != "P11" and $property->id != "P13" and $property->id != "P14" and $property->id != "P16") {
                             echo("['".$property->name."', {v: ".$property->value.",},], ");
                         }
                     }
@@ -129,16 +127,37 @@ if (isset($_GET['checkin'])) {
         <div class="row">
 
             <div class="col">
-                <button type="button" class="btn btn-danger btn-lg btn-block">Amazon</button>
+                <center>
+                    &#x20B9;169<br>
+                    <a href="https://amazon.com" type="button" class="btn btn-danger btn-lg btn-block">Amazon</a>
+                </center>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-warning btn-lg btn-block">Grofers</button>
+                <center>
+                    <?php
+                    if ($item->hasProperty("P16")) {
+                        echo "&#x20B9;";
+                        echo(getGrofersPrice($item->getProperty("P16")->value));
+                        echo "<a href='".$item->getProperty("P16")->value."' type='button' class='btn btn-warning btn-lg btn-block'>Grofers</a>";
+                    } else {
+                        echo "<br>";
+                        echo "<a href='https://grofers.com' type='button' class='btn btn-warning btn-lg btn-block'>Grofers</a>";
+                    }
+                     ?>
+
+                </center>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-success btn-lg btn-block">Bigbasket</button>
+                <center>
+                    &#x20B9;159<br>
+                    <a href="https://www.bigbasket.com/" type="button" class="btn btn-success btn-lg btn-block">Bigbasket</a>
+                </center>
             </div>
             <div class="col">
-                <a type="button" class="btn btn-light btn-lg btn-block" href="product.php?id=<?php echo($item->id);?>&checkin">Self Check-In</a>
+                <center>
+                    <br>
+                    <a type="button" class="btn btn-light btn-lg btn-block" href="product.php?id=<?php echo($item->id);?>&checkin">Self Check-In</a>
+                </center>
             </div>
         </div>
         <div class="row">

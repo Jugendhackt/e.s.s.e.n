@@ -7,6 +7,7 @@
 
     <body bgcolor="steelblue">
         <h1 color="red">
+            <img src="img/logo.jpg" height=10%>
             <center>E.S.S.E.N. - Efficient Super Safe Erudite Network</center>
         </h1>
         <style>
